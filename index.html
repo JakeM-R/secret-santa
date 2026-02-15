@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Santa 🎅</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #8B0000 0%, #5C0000 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Falling snowflakes */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 1;
+            color: white;
+            font-size: 1em;
+            text-shadow: 0 0 5px rgba(255,255,255,0.8);
+            animation: fall linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            text-align: center;
+            color: #8B0000;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #1B4D1B;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #1B4D1B;
+        }
+
+        .reveal-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.3em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1B4D1B 0%, #0B6623 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .reveal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(27, 77, 27, 0.4);
+        }
+
+        .reveal-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Animation Container */
+        .animation-container {
+            display: none;
+            margin-top: 40px;
+            position: relative;
+            min-height: 500px;
+        }
+
+        .animation-container.active {
+            display: block;
+        }
+
+        .animation-title {
+            text-align: center;
+            color: #8B0000;
+            font-size: 1.8em;
+            margin-bottom: 60px;
+            font-weight: bold;
+        }
+
+        /* Cards Container */
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+        .ampersand {
+            font-size: 2.5em;
+            color: #1B4D1B;
+            font-weight: bold;
+            margin: 0 5px;
+            flex-shrink: 0;
+        }
+
+        /* Card flip container */
+        .card-flip-container {
+            perspective: 1000px;
+            width: 220px;
+            height: 160px;
+            flex-shrink: 0;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 1s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Front of card (question mark) */
+        .card-front {
+            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+            color: white;
+        }
+
+        .card-front .question-mark {
+            font-size: 5em;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        }
+
+        /* Back of card (name) */
+        .card-back {
+            background: white;
+            color: #8B0000;
+            transform: rotateY(180deg);
+            border: 3px solid #1B4D1B;
+        }
+
+        .card-back h2 {
+            font-size: 2.2em;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: white;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        .confetti.gold {
+            background: #DAA520;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .success-message {
+            background: rgba(27, 77, 27, 0.1);
+            border: 2px solid #1B4D1B;
+            color: #0B6623;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 1.1em;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .success-message.show {
+            opacity: 1;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .cards-container {
+                gap: 20px;
+            }
+
+            .card-flip-container {
+                width: 150px;
+                height: 120px;
+            }
+
+            .card-back h2 {
+                font-size: 1.6em;
+            }
+
+            .card-front .question-mark {
+                font-size: 3em;
+            }
+
+            .ampersand {
+                font-size: 2em;
+                margin: 0 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Falling snowflakes -->
+    <div id="snowfall"></div>
+
+    <div class="container">
+        <h1>🎅 Secret Santa 🎄</h1>
+        <p class="subtitle">Discover your gift recipients!</p>
+
+        <!-- Form Section -->
+        <div id="form-section">
+            <div class="form-group">
+                <label for="name-select">Select Your Name:</label>
+                <select id="name-select">
+                    <option value="">-- Choose your name --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="email-input">Enter Your Email:</label>
+                <input type="email" id="email-input" placeholder="your.email@example.com">
+            </div>
+
+            <button class="reveal-btn" id="reveal-btn">
+                🎁 Reveal My Secret Santa Picks! 🎁
+            </button>
+        </div>
+
+        <!-- Animation Section -->
+        <div class="animation-container" id="animation-container">
+            <h2 class="animation-title">You're Giving Gifts To...</h2>
+
+            <div class="cards-container">
+                <!-- Card 1 -->
+                <div class="card-flip-container">
+                    <div class="card" id="card1">
+                        <div class="card-face card-front">
+                            <div class="question-mark">🎄</div>
+                        </div>
+                        <div class="card-face card-back">
+                            <h2 id="name1"></h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ampersand -->
+                <div class="ampersand">&</div>
+
+                <!-- Card 2 -->
+                <div class="card-flip-container">
+                    <div class="card" id="card2">
+                        <div class="card-face card-front">
+                            <div class="question-mark">🎄</div>
+                        </div>
+                        <div class="card-face card-back">
+                            <h2 id="name2"></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div id="message-area"></div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_URL = 'https://soft-sea-388e.j-makkingrobinson.workers.dev';
+
+        // Create snowfall
+        function createSnowfall() {
+            const snowfall = document.getElementById('snowfall');
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = '❄';
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                snowfall.appendChild(snowflake);
+            }
+        }
+
+        // Load family members
+        async function loadFamily() {
+            try {
+                const response = await fetch(`${API_URL}/api/family`);
+                const family = await response.json();
+                
+                const select = document.getElementById('name-select');
+                family.forEach(member => {
+                    const option = document.createElement('option');
+                    option.value = member.name;
+                    option.textContent = member.name;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading family:', error);
+                showMessage('Error loading family members. Please refresh the page.', 'error');
+            }
+        }
+
+        // Create confetti
+        function createConfetti() {
+            for (let i = 0; i < 60; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // 80% white, 20% gold
+                if (Math.random() > 0.2) {
+                    confetti.style.background = 'white';
+                } else {
+                    confetti.classList.add('gold');
+                }
+                
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '40%';
+                confetti.style.animationDelay = Math.random() * 0.3 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // Show message
+        function showMessage(text, type) {
+            const messageArea = document.getElementById('message-area');
+            const div = document.createElement('div');
+            div.className = type === 'error' ? 'error-message' : 'success-message';
+            div.textContent = text;
+            messageArea.innerHTML = '';
+            messageArea.appendChild(div);
+            
+            if (type === 'success') {
+                setTimeout(() => div.classList.add('show'), 100);
+            }
+        }
+
+        // Reveal animation - simple card flips
+        async function revealRecipients(recipient1, recipient2) {
+            const formSection = document.getElementById('form-section');
+            const animationContainer = document.getElementById('animation-container');
+            const card1 = document.getElementById('card1');
+            const card2 = document.getElementById('card2');
+            const name1 = document.getElementById('name1');
+            const name2 = document.getElementById('name2');
+
+            // Hide form
+            formSection.style.display = 'none';
+            animationContainer.classList.add('active');
+
+            // Set the names (hidden on back of cards)
+            name1.textContent = recipient1;
+            name2.textContent = recipient2;
+
+            // Wait a moment, then flip first card
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            card1.classList.add('flipped');
+
+            // Wait 3 seconds, then flip second card
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            card2.classList.add('flipped');
+
+            // Wait a moment, then confetti
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            createConfetti();
+
+            // Show success message
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            showMessage('Check your email for your assignments! 🎄✨', 'success');
+        }
+
+        // Handle button click
+        document.getElementById('reveal-btn').addEventListener('click', async () => {
+            const name = document.getElementById('name-select').value;
+            const email = document.getElementById('email-input').value;
+
+            if (!name) {
+                showMessage('Please select your name!', 'error');
+                return;
+            }
+
+            if (!email || !email.includes('@')) {
+                showMessage('Please enter a valid email address!', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('reveal-btn');
+            btn.disabled = true;
+            btn.textContent = '✨ Generating Magic... ✨';
+
+            try {
+                const response = await fetch(`${API_URL}/api/get-assignment`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to get assignment');
+                }
+
+                // Start animation
+                await revealRecipients(data.recipient1, data.recipient2);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('Something went wrong! Please try again.', 'error');
+                btn.disabled = false;
+                btn.textContent = '🎁 Reveal My Secret Santa Picks! 🎁';
+            }
+        });
+
+        // Initialize
+        createSnowfall();
+        loadFamily();
+    </script>
+</body>
+</html>
