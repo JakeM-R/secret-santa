@@ -13,13 +13,13 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #434343 0%, #000000 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #5C0000 100%);
             min-height: 100vh;
             padding: 20px;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -28,7 +28,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #434343 0%, #000000 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #5C0000 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -37,11 +37,6 @@
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
         }
 
         /* Login Section */
@@ -75,14 +70,14 @@
 
         .password-input:focus {
             outline: none;
-            border-color: #434343;
+            border-color: #8B0000;
         }
 
         .login-btn {
             width: 100%;
             padding: 15px;
             font-size: 1.2em;
-            background: linear-gradient(135deg, #434343 0%, #000000 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #5C0000 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -94,12 +89,7 @@
             transform: translateY(-2px);
         }
 
-        .login-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        /* Dashboard Section */
+        /* Dashboard */
         .dashboard {
             display: none;
             padding: 40px;
@@ -117,7 +107,7 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
             color: white;
             padding: 25px;
             border-radius: 10px;
@@ -149,6 +139,49 @@
             border-bottom: 2px solid #ddd;
         }
 
+        /* Assignment Views */
+        .assignment-row {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .assignment-row .name {
+            font-weight: bold;
+            color: #8B0000;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .assignment-hidden {
+            background: #e0e0e0;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+            display: inline-block;
+        }
+
+        .assignment-hidden:hover {
+            background: #d0d0d0;
+        }
+
+        .assignment-revealed {
+            color: #1B4D1B;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+
+        .last-year-assignments {
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+
+        /* Family Management */
         .family-list {
             display: grid;
             gap: 10px;
@@ -199,11 +232,11 @@
 
         .add-member-form input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #8B0000;
         }
 
         .add-btn {
-            background: #2ecc71;
+            background: #1B4D1B;
             color: white;
             border: none;
             padding: 12px 25px;
@@ -214,9 +247,10 @@
         }
 
         .add-btn:hover {
-            background: #27ae60;
+            background: #0B6623;
         }
 
+        /* Action Buttons */
         .action-buttons {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -238,33 +272,52 @@
             transform: translateY(-2px);
         }
 
-        .reset-btn {
+        .action-btn.danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .action-btn.danger:hover {
+            background: #c0392b;
+        }
+
+        .action-btn.warning {
             background: #f39c12;
             color: white;
         }
 
-        .reset-btn:hover {
+        .action-btn.warning:hover {
             background: #e67e22;
         }
 
-        .refresh-btn {
+        .action-btn.primary {
             background: #3498db;
             color: white;
         }
 
-        .refresh-btn:hover {
+        .action-btn.primary:hover {
             background: #2980b9;
         }
 
-        .logout-btn {
+        .action-btn.success {
+            background: #1B4D1B;
+            color: white;
+        }
+
+        .action-btn.success:hover {
+            background: #0B6623;
+        }
+
+        .action-btn.secondary {
             background: #95a5a6;
             color: white;
         }
 
-        .logout-btn:hover {
+        .action-btn.secondary:hover {
             background: #7f8c8d;
         }
 
+        /* Access Log */
         .access-log {
             background: white;
             padding: 15px;
@@ -288,17 +341,17 @@
 
         .access-log-item .name {
             font-weight: bold;
-            color: #667eea;
-        }
-
-        .access-log-item .time {
-            font-size: 0.9em;
-            color: #777;
+            color: #8B0000;
         }
 
         .access-log-item .email {
             font-size: 0.9em;
             color: #555;
+        }
+
+        .access-log-item .time {
+            font-size: 0.9em;
+            color: #777;
         }
 
         .message {
@@ -386,9 +439,25 @@
                     <p>People Who Checked</p>
                 </div>
                 <div class="stat-card">
-                    <h3 id="current-year">2024</h3>
+                    <h3 id="current-year">2026</h3>
                     <p>Current Year</p>
                 </div>
+                <div class="stat-card">
+                    <h3 id="assignments-status">No</h3>
+                    <p>Assignments Generated</p>
+                </div>
+            </div>
+
+            <!-- Current Year Assignments -->
+            <div class="section">
+                <h2>📋 Current Year Assignments (Click to Reveal)</h2>
+                <div id="current-assignments"></div>
+            </div>
+
+            <!-- Last Year Assignments -->
+            <div class="section">
+                <h2>📅 Last Year's Assignments (For Reference)</h2>
+                <div id="last-year-assignments"></div>
             </div>
 
             <!-- Family Members Management -->
@@ -411,13 +480,19 @@
             <div class="section">
                 <h2>⚙️ Actions</h2>
                 <div class="action-buttons">
-                    <button class="action-btn reset-btn" id="reset-btn">
-                        🔄 Reset for New Year
+                    <button class="action-btn success" id="regenerate-btn">
+                        🔄 Regenerate Assignments
                     </button>
-                    <button class="action-btn refresh-btn" id="refresh-btn">
+                    <button class="action-btn danger" id="clear-btn">
+                        🗑️ Clear This Year's Assignments
+                    </button>
+                    <button class="action-btn warning" id="reset-btn">
+                        📅 Reset for New Year
+                    </button>
+                    <button class="action-btn primary" id="refresh-btn">
                         ↻ Refresh Data
                     </button>
-                    <button class="action-btn logout-btn" id="logout-btn">
+                    <button class="action-btn secondary" id="logout-btn">
                         🚪 Logout
                     </button>
                 </div>
@@ -427,10 +502,11 @@
     </div>
 
     <script>
-        // Configuration - UPDATE THIS WITH YOUR CLOUDFLARE WORKER URL
+        // Configuration
         const API_URL = 'https://soft-sea-388e.j-makkingrobinson.workers.dev';
 
         let adminPassword = '';
+        let currentAssignmentsData = null;
 
         // Login
         document.getElementById('login-btn').addEventListener('click', async () => {
@@ -446,7 +522,6 @@
             loginBtn.textContent = 'Logging in...';
 
             try {
-                // Test the password by making a stats request
                 const response = await fetch(`${API_URL}/api/admin/stats`, {
                     method: 'POST',
                     headers: {
@@ -479,14 +554,12 @@
             }
         });
 
-        // Show login message
         function showLoginMessage(text, type) {
             const messageDiv = document.getElementById('login-message');
             messageDiv.className = `message ${type}`;
             messageDiv.textContent = text;
         }
 
-        // Show action message
         function showActionMessage(text, type) {
             const messageDiv = document.getElementById('action-message');
             messageDiv.className = `message ${type}`;
@@ -501,6 +574,8 @@
         async function loadDashboard() {
             await Promise.all([
                 loadStats(),
+                loadCurrentAssignments(),
+                loadLastYearAssignments(),
                 loadFamily()
             ]);
         }
@@ -521,6 +596,7 @@
                 document.getElementById('total-people').textContent = stats.totalPeople;
                 document.getElementById('accessed-count').textContent = stats.accessed;
                 document.getElementById('current-year').textContent = stats.year;
+                document.getElementById('assignments-status').textContent = stats.accessed > 0 || currentAssignmentsData ? 'Yes' : 'No';
 
                 // Display access log
                 const accessLog = document.getElementById('access-log');
@@ -554,6 +630,110 @@
             } catch (error) {
                 console.error('Error loading stats:', error);
                 showActionMessage('Error loading statistics', 'error');
+            }
+        }
+
+        // Load current assignments (hidden, click to reveal)
+        async function loadCurrentAssignments() {
+            try {
+                const response = await fetch(`${API_URL}/api/admin/current-assignments`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password: adminPassword })
+                });
+
+                if (!response.ok) {
+                    document.getElementById('current-assignments').innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">❌</div>
+                            <p>No assignments generated for this year yet</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const data = await response.json();
+                currentAssignmentsData = data.assignments;
+                
+                const container = document.getElementById('current-assignments');
+                container.innerHTML = '';
+
+                const family = await (await fetch(`${API_URL}/api/family`)).json();
+                
+                family.forEach(member => {
+                    const assignment = data.assignments[member.id];
+                    if (!assignment) return;
+
+                    const row = document.createElement('div');
+                    row.className = 'assignment-row';
+                    row.innerHTML = `
+                        <div class="name">${member.name}</div>
+                        <div class="assignment-hidden" onclick="revealAssignment(this, '${assignment.recipient1}', '${assignment.recipient2}')">
+                            Click to reveal assignments
+                        </div>
+                    `;
+                    container.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading current assignments:', error);
+            }
+        }
+
+        // Reveal assignment when clicked
+        function revealAssignment(element, recipient1, recipient2) {
+            element.className = 'assignment-revealed';
+            element.innerHTML = `${recipient1} & ${recipient2}`;
+            element.onclick = null;
+        }
+
+        // Load last year's assignments
+        async function loadLastYearAssignments() {
+            try {
+                const response = await fetch(`${API_URL}/api/admin/last-year`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password: adminPassword })
+                });
+
+                if (!response.ok) {
+                    document.getElementById('last-year-assignments').innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <p>No last year data available</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const data = await response.json();
+                const container = document.getElementById('last-year-assignments');
+                container.innerHTML = '';
+
+                const family = await (await fetch(`${API_URL}/api/family`)).json();
+
+                family.forEach(member => {
+                    const lastYearIds = data.lastYear[member.id];
+                    if (!lastYearIds || lastYearIds.length === 0) return;
+
+                    const recipient1 = family.find(m => m.id === lastYearIds[0]);
+                    const recipient2 = family.find(m => m.id === lastYearIds[1]);
+
+                    const row = document.createElement('div');
+                    row.className = 'assignment-row';
+                    row.innerHTML = `
+                        <div class="name">${member.name}</div>
+                        <div class="last-year-assignments">
+                            Last year: ${recipient1?.name || 'Unknown'} & ${recipient2?.name || 'Unknown'}
+                        </div>
+                    `;
+                    container.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading last year assignments:', error);
             }
         }
 
@@ -639,6 +819,68 @@
             }
         }
 
+        // Regenerate assignments
+        document.getElementById('regenerate-btn').addEventListener('click', async () => {
+            const confirmed = confirm(
+                'Are you sure you want to regenerate assignments?\n\n' +
+                'This will create a NEW set of assignments for this year.\n' +
+                'Anyone who already checked will see different results!'
+            );
+
+            if (!confirmed) return;
+
+            try {
+                const response = await fetch(`${API_URL}/api/admin/regenerate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password: adminPassword })
+                });
+
+                if (response.ok) {
+                    showActionMessage('Successfully regenerated assignments!', 'success');
+                    await loadDashboard();
+                } else {
+                    showActionMessage('Failed to regenerate', 'error');
+                }
+            } catch (error) {
+                console.error('Error regenerating:', error);
+                showActionMessage('Error regenerating assignments', 'error');
+            }
+        });
+
+        // Clear this year's assignments
+        document.getElementById('clear-btn').addEventListener('click', async () => {
+            const confirmed = confirm(
+                'Are you sure you want to CLEAR this year\'s assignments?\n\n' +
+                'This will DELETE current assignments WITHOUT saving them as last year.\n' +
+                'Use this for testing. Use "Reset for New Year" at year-end instead.'
+            );
+
+            if (!confirmed) return;
+
+            try {
+                const response = await fetch(`${API_URL}/api/admin/clear-current`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password: adminPassword })
+                });
+
+                if (response.ok) {
+                    showActionMessage('Successfully cleared current assignments!', 'success');
+                    await loadDashboard();
+                } else {
+                    showActionMessage('Failed to clear', 'error');
+                }
+            } catch (error) {
+                console.error('Error clearing:', error);
+                showActionMessage('Error clearing assignments', 'error');
+            }
+        });
+
         // Reset for new year
         document.getElementById('reset-btn').addEventListener('click', async () => {
             const confirmed = confirm(
@@ -687,8 +929,9 @@
             document.getElementById('login-section').classList.remove('hidden');
         });
 
-        // Make removeMember globally accessible
+        // Make functions globally accessible
         window.removeMember = removeMember;
+        window.revealAssignment = revealAssignment;
     </script>
 </body>
 </html>
