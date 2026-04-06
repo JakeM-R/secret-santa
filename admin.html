@@ -736,7 +736,7 @@
                         </div>
                     `;
                 } else {
-                    Object.values(stats.accessLog).forEach(log => {
+                    Object.entries(stats.accessLog).forEach(([personId, log]) => {
                         const item = document.createElement('div');
                         item.className = 'access-log-item';
                         const date = new Date(log.accessedAt);
@@ -747,7 +747,7 @@
                             </div>
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <span class="time">${date.toLocaleString()}</span>
-                                <button class="reset-access-btn" onclick="resetAccess(${log.id}, '${log.name}')">Reset Access</button>
+                                <button class="reset-access-btn" onclick="resetAccess(${personId}, '${log.name}')">Reset Access</button>
                             </div>
                         `;
                         accessLog.appendChild(item);
