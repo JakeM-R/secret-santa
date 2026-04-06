@@ -812,7 +812,7 @@
 
         async function getFamily() {
             if (!cachedFamily) {
-                cachedFamily = await (await fetch(`${API_URL}/api/family`)).json();
+                cachedFamily = await (await fetch(`${API_URL}/api/family-all`)).json();
             }
             return cachedFamily;
         }
@@ -960,7 +960,7 @@
 
         async function loadFamily() {
             try {
-                const response = await fetch(`${API_URL}/api/family`);
+                const response = await fetch(`${API_URL}/api/family-all`);
                 const family = await response.json();
 
                 const familyList = document.getElementById('family-list');
