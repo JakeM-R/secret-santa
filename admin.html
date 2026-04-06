@@ -1118,22 +1118,28 @@
         async function resetAccess(personId, personName) {
             if (!confirm(`Reset access for ${personName}?\n\nThis will allow them to check their assignments again.`)) return;
 
+            console.log('Resetting access for:', personId, personName);
+
             try {
                 const response = await fetch(`${API_URL}/api/admin/reset-access`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password: adminPassword, personId })
+                    body: JSON.stringify({ password: adminPassword, personId: personId })
                 });
+
+                console.log('Response status:', response.status);
+                const data = await response.json();
+                console.log('Response data:', data);
 
                 if (response.ok) {
                     showActionMessage(`Reset access for ${personName}!`, 'success');
                     await loadDashboard();
                 } else {
-                    showActionMessage('Failed to reset access', 'error');
+                    showActionMessage(data.error || 'Failed to reset access', 'error');
                 }
             } catch (error) {
                 console.error('Error resetting access:', error);
-                showActionMessage('Error resetting access', 'error');
+                showActionMessage('Error resetting access: ' + error.message, 'error');
             }
         }
     </script>
