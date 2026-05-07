@@ -39,7 +39,6 @@
             margin-bottom: 10px;
         }
 
-        /* Login Section */
         .login-section {
             padding: 60px 40px;
             text-align: center;
@@ -89,7 +88,6 @@
             transform: translateY(-2px);
         }
 
-        /* Dashboard */
         .dashboard {
             display: none;
             padding: 40px;
@@ -125,21 +123,55 @@
             opacity: 0.9;
         }
 
+        /* Collapsible sections */
         .section {
             background: #f8f9fa;
-            padding: 25px;
             border-radius: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
+            overflow: hidden;
         }
 
-        .section h2 {
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .section-header:hover {
+            background: #e9ecef;
+        }
+
+        .section-header h2 {
             color: #333;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ddd;
+            margin: 0;
+            padding: 0;
+            border: none;
         }
 
-        /* Assignment Views */
+        .section-toggle {
+            font-size: 1.2em;
+            color: #666;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .section-toggle.open {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            padding: 0 25px 25px 25px;
+            display: none;
+        }
+
+        .section-content.open {
+            display: block;
+        }
+
         .assignment-row {
             background: white;
             padding: 15px 20px;
@@ -181,7 +213,6 @@
             margin-top: 5px;
         }
 
-        /* Family Management */
         .family-list {
             display: grid;
             gap: 10px;
@@ -250,7 +281,6 @@
             background: #0B6623;
         }
 
-        /* Action Buttons */
         .action-buttons {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -272,52 +302,17 @@
             transform: translateY(-2px);
         }
 
-        .action-btn.danger {
-            background: #e74c3c;
-            color: white;
-        }
+        .action-btn.danger { background: #e74c3c; color: white; }
+        .action-btn.danger:hover { background: #c0392b; }
+        .action-btn.warning { background: #f39c12; color: white; }
+        .action-btn.warning:hover { background: #e67e22; }
+        .action-btn.primary { background: #3498db; color: white; }
+        .action-btn.primary:hover { background: #2980b9; }
+        .action-btn.success { background: #1B4D1B; color: white; }
+        .action-btn.success:hover { background: #0B6623; }
+        .action-btn.secondary { background: #95a5a6; color: white; }
+        .action-btn.secondary:hover { background: #7f8c8d; }
 
-        .action-btn.danger:hover {
-            background: #c0392b;
-        }
-
-        .action-btn.warning {
-            background: #f39c12;
-            color: white;
-        }
-
-        .action-btn.warning:hover {
-            background: #e67e22;
-        }
-
-        .action-btn.primary {
-            background: #3498db;
-            color: white;
-        }
-
-        .action-btn.primary:hover {
-            background: #2980b9;
-        }
-
-        .action-btn.success {
-            background: #1B4D1B;
-            color: white;
-        }
-
-        .action-btn.success:hover {
-            background: #0B6623;
-        }
-
-        .action-btn.secondary {
-            background: #95a5a6;
-            color: white;
-        }
-
-        .action-btn.secondary:hover {
-            background: #7f8c8d;
-        }
-
-        /* Access Log */
         .access-log {
             background: white;
             padding: 15px;
@@ -354,6 +349,22 @@
             color: #777;
         }
 
+        .reset-access-btn {
+            background: #f39c12;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-left: 10px;
+            transition: background 0.2s;
+        }
+
+        .reset-access-btn:hover {
+            background: #e67e22;
+        }
+
         .message {
             padding: 15px;
             border-radius: 8px;
@@ -361,23 +372,9 @@
             text-align: center;
         }
 
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .message.warning {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeaa7;
-        }
+        .message.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .message.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .message.warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
 
         .last-year-edit-row {
             background: white;
@@ -432,21 +429,10 @@
         }
 
         @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .action-buttons {
-                grid-template-columns: 1fr;
-            }
-
-            .add-member-form {
-                flex-direction: column;
-            }
-
-            .dashboard {
-                padding: 20px;
-            }
+            .stats-grid { grid-template-columns: 1fr; }
+            .action-buttons { grid-template-columns: 1fr; }
+            .add-member-form { flex-direction: column; }
+            .dashboard { padding: 20px; }
         }
     </style>
 </head>
@@ -457,7 +443,6 @@
             <p>Manage your Secret Santa event</p>
         </div>
 
-        <!-- Login Section -->
         <div class="login-section" id="login-section">
             <div class="login-box">
                 <h2>🔐 Admin Login</h2>
@@ -467,9 +452,7 @@
             </div>
         </div>
 
-        <!-- Dashboard Section -->
         <div class="dashboard" id="dashboard">
-            <!-- Statistics -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3 id="total-people">0</h3>
@@ -491,69 +474,83 @@
 
             <!-- Current Year Assignments -->
             <div class="section">
-                <h2>📋 Current Year Assignments (Click to Reveal)</h2>
-                <div id="current-assignments"></div>
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2>📋 Current Year Assignments</h2>
+                    <span class="section-toggle">▼</span>
+                </div>
+                <div class="section-content">
+                    <div id="current-assignments"></div>
+                </div>
             </div>
 
             <!-- Last Year Assignments -->
             <div class="section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #ddd;">
-                    <h2 style="margin: 0; border: none; padding: 0;">📅 Last Year's Assignments (For Reference)</h2>
-                    <button class="action-btn primary" id="edit-last-year-btn" style="margin: 0; padding: 8px 16px; font-size: 0.95em;">✏️ Edit</button>
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                        <h2 style="margin: 0;">📅 Last Year's Assignments</h2>
+                        <button class="action-btn primary" id="edit-last-year-btn" style="margin: 0; padding: 6px 12px; font-size: 0.85em;" onclick="event.stopPropagation(); showLastYearEdit();">✏️ Edit</button>
+                    </div>
+                    <span class="section-toggle">▼</span>
                 </div>
-                <div id="last-year-assignments"></div>
-                <div id="last-year-edit" style="display: none;">
-                    <div id="last-year-edit-rows"></div>
-                    <div style="display: flex; gap: 10px; margin-top: 15px;">
-                        <button class="action-btn success" id="save-last-year-btn">💾 Save Last Year</button>
-                        <button class="action-btn secondary" id="cancel-edit-last-year-btn">Cancel</button>
+                <div class="section-content">
+                    <div id="last-year-assignments"></div>
+                    <div id="last-year-edit" style="display: none;">
+                        <div id="last-year-edit-rows"></div>
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <button class="action-btn success" id="save-last-year-btn">💾 Save Last Year</button>
+                            <button class="action-btn secondary" id="cancel-edit-last-year-btn">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Family Members Management -->
+            <!-- Family Members -->
             <div class="section">
-                <h2>👨‍👩‍👧‍👦 Family Members</h2>
-                <div class="family-list" id="family-list"></div>
-                <div class="add-member-form">
-                    <input type="text" id="new-member-name" placeholder="Enter new member name">
-                    <button class="add-btn" id="add-member-btn">+ Add Member</button>
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2>👨‍👩‍👧‍👦 Family Members</h2>
+                    <span class="section-toggle">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="family-list" id="family-list"></div>
+                    <div class="add-member-form">
+                        <input type="text" id="new-member-name" placeholder="Enter new member name">
+                        <button class="add-btn" id="add-member-btn">+ Add Member</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Access Log -->
             <div class="section">
-                <h2>📋 Who Has Checked Their Assignments</h2>
-                <div class="access-log" id="access-log"></div>
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2>📋 Who Has Checked Their Assignments</h2>
+                    <span class="section-toggle">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="access-log" id="access-log"></div>
+                </div>
             </div>
 
-            <!-- Action Buttons -->
+            <!-- Actions -->
             <div class="section">
-                <h2>⚙️ Actions</h2>
-                <div class="action-buttons">
-                    <button class="action-btn success" id="regenerate-btn">
-                        🔄 Regenerate Assignments
-                    </button>
-                    <button class="action-btn danger" id="clear-btn">
-                        🗑️ Clear This Year's Assignments
-                    </button>
-                    <button class="action-btn warning" id="reset-btn">
-                        📅 Reset for New Year
-                    </button>
-                    <button class="action-btn primary" id="refresh-btn">
-                        ↻ Refresh Data
-                    </button>
-                    <button class="action-btn secondary" id="logout-btn">
-                        🚪 Logout
-                    </button>
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2>⚙️ Actions</h2>
+                    <span class="section-toggle">▼</span>
                 </div>
-                <div id="action-message"></div>
+                <div class="section-content">
+                    <div class="action-buttons">
+                        <button class="action-btn success" id="regenerate-btn">🔄 Regenerate Assignments</button>
+                        <button class="action-btn danger" id="clear-btn">🗑️ Clear This Year's Assignments</button>
+                        <button class="action-btn warning" id="reset-btn">📅 Reset for New Year</button>
+                        <button class="action-btn primary" id="refresh-btn">↻ Refresh Data</button>
+                        <button class="action-btn secondary" id="logout-btn">🚪 Logout</button>
+                    </div>
+                    <div id="action-message"></div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Configuration
         const API_URL = 'https://soft-sea-388e.j-makkingrobinson.workers.dev';
 
         let adminPassword = '';
@@ -561,11 +558,17 @@
         let cachedFamily = null;
         let lastYearData = null;
 
-        // Login
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            const toggle = header.querySelector('.section-toggle');
+            content.classList.toggle('open');
+            toggle.classList.toggle('open');
+        }
+
         document.getElementById('login-btn').addEventListener('click', async () => {
             const password = document.getElementById('password-input').value;
             const loginBtn = document.getElementById('login-btn');
-            
+
             if (!password) {
                 showLoginMessage('Please enter a password', 'error');
                 return;
@@ -577,9 +580,7 @@
             try {
                 const response = await fetch(`${API_URL}/api/admin/stats`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password })
                 });
 
@@ -600,11 +601,8 @@
             }
         });
 
-        // Allow Enter key for login
         document.getElementById('password-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                document.getElementById('login-btn').click();
-            }
+            if (e.key === 'Enter') document.getElementById('login-btn').click();
         });
 
         function showLoginMessage(text, type) {
@@ -623,25 +621,16 @@
             }, 5000);
         }
 
-        // Load dashboard data
         async function loadDashboard() {
             cachedFamily = null;
-            await Promise.all([
-                loadStats(),
-                loadCurrentAssignments(),
-                loadLastYearAssignments(),
-                loadFamily()
-            ]);
+            await Promise.all([loadStats(), loadCurrentAssignments(), loadLastYearAssignments(), loadFamily()]);
         }
 
-        // Load statistics
         async function loadStats() {
             try {
                 const response = await fetch(`${API_URL}/api/admin/stats`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password: adminPassword })
                 });
 
@@ -652,7 +641,6 @@
                 document.getElementById('current-year').textContent = stats.year;
                 document.getElementById('assignments-status').textContent = stats.accessed > 0 || currentAssignmentsData ? 'Yes' : 'No';
 
-                // Display access log
                 const accessLog = document.getElementById('access-log');
                 accessLog.innerHTML = '';
 
@@ -664,19 +652,19 @@
                         </div>
                     `;
                 } else {
-                    Object.values(stats.accessLog).forEach(log => {
+                    Object.entries(stats.accessLog).forEach(([personId, log]) => {
                         const item = document.createElement('div');
                         item.className = 'access-log-item';
-                        
                         const date = new Date(log.accessedAt);
-                        const timeStr = date.toLocaleString();
-                        
                         item.innerHTML = `
                             <div>
                                 <span class="name">${log.name}</span><br>
                                 <span class="email">${log.email}</span>
                             </div>
-                            <span class="time">${timeStr}</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span class="time">${date.toLocaleString()}</span>
+                                <button class="reset-access-btn" onclick="resetAccess(${personId}, '${log.name}')">Reset Access</button>
+                            </div>
                         `;
                         accessLog.appendChild(item);
                     });
@@ -687,14 +675,11 @@
             }
         }
 
-        // Load current assignments (hidden, click to reveal)
         async function loadCurrentAssignments() {
             try {
                 const response = await fetch(`${API_URL}/api/admin/current-assignments`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password: adminPassword })
                 });
 
@@ -710,12 +695,12 @@
 
                 const data = await response.json();
                 currentAssignmentsData = data.assignments;
-                
+
                 const container = document.getElementById('current-assignments');
                 container.innerHTML = '';
 
-                const family = await (await fetch(`${API_URL}/api/family`)).json();
-                
+                const family = await getFamily();
+
                 family.forEach(member => {
                     const assignment = data.assignments[member.id];
                     if (!assignment) return;
@@ -735,17 +720,15 @@
             }
         }
 
-        // Reveal assignment when clicked
         function revealAssignment(element, recipient1, recipient2) {
             element.className = 'assignment-revealed';
             element.innerHTML = `${recipient1} & ${recipient2}`;
             element.onclick = null;
         }
 
-        // Load last year's assignments
         async function getFamily() {
             if (!cachedFamily) {
-                cachedFamily = await (await fetch(`${API_URL}/api/family`)).json();
+                cachedFamily = await (await fetch(`${API_URL}/api/family-all`)).json();
             }
             return cachedFamily;
         }
@@ -809,7 +792,6 @@
             }
         }
 
-        // Show the last year edit form
         async function showLastYearEdit() {
             const family = await getFamily();
             const editRows = document.getElementById('last-year-edit-rows');
@@ -830,15 +812,9 @@
                 row.className = 'last-year-edit-row';
                 row.innerHTML = `
                     <span class="name">${member.name} →</span>
-                    <select id="ly-r1-${member.id}">
-                        ${blankOption}
-                        ${buildOptions(currentIds[0])}
-                    </select>
+                    <select id="ly-r1-${member.id}">${blankOption}${buildOptions(currentIds[0])}</select>
                     <span class="ampersand-label">&amp;</span>
-                    <select id="ly-r2-${member.id}">
-                        ${blankOption}
-                        ${buildOptions(currentIds[1])}
-                    </select>
+                    <select id="ly-r2-${member.id}">${blankOption}${buildOptions(currentIds[1])}</select>
                 `;
                 editRows.appendChild(row);
             });
@@ -874,7 +850,7 @@
                 });
 
                 if (response.ok) {
-                    showActionMessage('Last year\'s assignments saved!', 'success');
+                    showActionMessage("Last year's assignments saved!", 'success');
                     lastYearData = newLastYear;
                     hideLastYearEdit();
                     await loadLastYearAssignments();
@@ -883,7 +859,6 @@
                     showActionMessage(err.error || 'Failed to save last year assignments', 'error');
                 }
             } catch (error) {
-                console.error('Error saving last year:', error);
                 showActionMessage('Error saving last year assignments', 'error');
             }
         }
@@ -892,10 +867,9 @@
         document.getElementById('cancel-edit-last-year-btn').addEventListener('click', hideLastYearEdit);
         document.getElementById('save-last-year-btn').addEventListener('click', saveLastYear);
 
-        // Load family members
         async function loadFamily() {
             try {
-                const response = await fetch(`${API_URL}/api/family`);
+                const response = await fetch(`${API_URL}/api/family-all`);
                 const family = await response.json();
 
                 const familyList = document.getElementById('family-list');
@@ -911,26 +885,18 @@
                     familyList.appendChild(div);
                 });
             } catch (error) {
-                console.error('Error loading family:', error);
                 showActionMessage('Error loading family members', 'error');
             }
         }
 
-        // Add member
         document.getElementById('add-member-btn').addEventListener('click', async () => {
             const name = document.getElementById('new-member-name').value.trim();
-            
-            if (!name) {
-                showActionMessage('Please enter a name', 'error');
-                return;
-            }
+            if (!name) { showActionMessage('Please enter a name', 'error'); return; }
 
             try {
                 const response = await fetch(`${API_URL}/api/admin/add-member`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password: adminPassword, name })
                 });
 
@@ -942,23 +908,17 @@
                     showActionMessage('Failed to add member', 'error');
                 }
             } catch (error) {
-                console.error('Error adding member:', error);
                 showActionMessage('Error adding member', 'error');
             }
         });
 
-        // Remove member
         async function removeMember(id, name) {
-            if (!confirm(`Are you sure you want to remove ${name}?`)) {
-                return;
-            }
+            if (!confirm(`Are you sure you want to remove ${name}?`)) return;
 
             try {
                 const response = await fetch(`${API_URL}/api/admin/remove-member`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password: adminPassword, id })
                 });
 
@@ -969,27 +929,40 @@
                     showActionMessage('Failed to remove member', 'error');
                 }
             } catch (error) {
-                console.error('Error removing member:', error);
                 showActionMessage('Error removing member', 'error');
             }
         }
 
-        // Regenerate assignments
-        document.getElementById('regenerate-btn').addEventListener('click', async () => {
-            const confirmed = confirm(
-                'Are you sure you want to regenerate assignments?\n\n' +
-                'This will create a NEW set of assignments for this year.\n' +
-                'Anyone who already checked will see different results!'
-            );
+        async function resetAccess(personId, personName) {
+            if (!confirm(`Reset access for ${personName}?\n\nThis will allow them to check their assignments again.`)) return;
 
-            if (!confirmed) return;
+            try {
+                const response = await fetch(`${API_URL}/api/admin/reset-access`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: adminPassword, personId })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showActionMessage(`Reset access for ${personName}!`, 'success');
+                    await loadDashboard();
+                } else {
+                    showActionMessage(data.error || 'Failed to reset access', 'error');
+                }
+            } catch (error) {
+                showActionMessage('Error resetting access: ' + error.message, 'error');
+            }
+        }
+
+        document.getElementById('regenerate-btn').addEventListener('click', async () => {
+            if (!confirm('Are you sure you want to regenerate assignments?\n\nThis will create a NEW set of assignments for this year.\nAnyone who already checked will see different results!')) return;
 
             try {
                 const response = await fetch(`${API_URL}/api/admin/regenerate`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password: adminPassword })
                 });
 
@@ -1000,27 +973,17 @@
                     showActionMessage('Failed to regenerate', 'error');
                 }
             } catch (error) {
-                console.error('Error regenerating:', error);
                 showActionMessage('Error regenerating assignments', 'error');
             }
         });
 
-        // Clear this year's assignments
         document.getElementById('clear-btn').addEventListener('click', async () => {
-            const confirmed = confirm(
-                'Are you sure you want to CLEAR this year\'s assignments?\n\n' +
-                'This will DELETE current assignments WITHOUT saving them as last year.\n' +
-                'Use this for testing. Use "Reset for New Year" at year-end instead.'
-            );
-
-            if (!confirmed) return;
+            if (!confirm('Are you sure you want to CLEAR this year\'s assignments?\n\nThis will DELETE current assignments WITHOUT saving them as last year.\nUse this for testing. Use "Reset for New Year" at year-end instead.')) return;
 
             try {
                 const response = await fetch(`${API_URL}/api/admin/clear-current`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password: adminPassword })
                 });
 
@@ -1031,30 +994,17 @@
                     showActionMessage('Failed to clear', 'error');
                 }
             } catch (error) {
-                console.error('Error clearing:', error);
                 showActionMessage('Error clearing assignments', 'error');
             }
         });
 
-        // Reset for new year
         document.getElementById('reset-btn').addEventListener('click', async () => {
-            const confirmed = confirm(
-                'Are you sure you want to reset for a new year?\n\n' +
-                'This will:\n' +
-                '- Save this year\'s assignments as last year\'s (for constraints)\n' +
-                '- Clear all current assignments\n' +
-                '- Allow new assignments to be generated\n\n' +
-                'This action cannot be undone!'
-            );
-
-            if (!confirmed) return;
+            if (!confirm('Are you sure you want to reset for a new year?\n\nThis will:\n- Save this year\'s assignments as last year\'s (for constraints)\n- Clear all current assignments\n- Allow new assignments to be generated\n\nThis action cannot be undone!')) return;
 
             try {
                 const response = await fetch(`${API_URL}/api/admin/reset-year`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password: adminPassword })
                 });
 
@@ -1065,18 +1015,15 @@
                     showActionMessage('Failed to reset', 'error');
                 }
             } catch (error) {
-                console.error('Error resetting:', error);
                 showActionMessage('Error resetting for new year', 'error');
             }
         });
 
-        // Refresh data
         document.getElementById('refresh-btn').addEventListener('click', async () => {
             showActionMessage('Refreshing...', 'success');
             await loadDashboard();
         });
 
-        // Logout
         document.getElementById('logout-btn').addEventListener('click', () => {
             adminPassword = '';
             document.getElementById('password-input').value = '';
@@ -1084,9 +1031,10 @@
             document.getElementById('login-section').classList.remove('hidden');
         });
 
-        // Make functions globally accessible
         window.removeMember = removeMember;
         window.revealAssignment = revealAssignment;
+        window.toggleSection = toggleSection;
+        window.resetAccess = resetAccess;
     </script>
 </body>
 </html>

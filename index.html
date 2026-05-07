@@ -262,11 +262,6 @@
             gap: 6px;
         }
 
-        .card-back .card-star {
-            font-size: 1.2em;
-            opacity: 0.6;
-        }
-
         .card-back h2 {
             font-size: 2.2em;
             text-align: center;
@@ -346,7 +341,6 @@
 
         @media (max-width: 600px) {
             body {
-                align-items: flex-start;
                 padding: 12px;
             }
 
@@ -460,7 +454,6 @@
                             <div class="question-mark">🎁</div>
                         </div>
                         <div class="card-face card-back">
-                            <span class="card-star">⭐</span>
                             <h2 id="name1"></h2>
                         </div>
                     </div>
@@ -492,6 +485,7 @@
         const API_URL = 'https://soft-sea-388e.j-makkingrobinson.workers.dev';
 
         const isMobile = window.innerWidth < 600;
+        let selectedName = '';
 
         function createSnowfall() {
             const snowfall = document.getElementById('snowfall');
@@ -596,7 +590,7 @@
 
             await new Promise(resolve => setTimeout(resolve, 1000));
             showMessage(
-                `🎉 Ho ho ho! Happy gifting! 🎉<span class="success-sub">A copy has been sent to your email too. 📬</span>`,
+                `🎄 Merry Christmas, ${selectedName}! 🎄<span class="success-sub">A copy has been sent to your email too. 📬</span>`,
                 'success'
             );
         }
@@ -604,6 +598,7 @@
         document.getElementById('reveal-btn').addEventListener('click', async () => {
             const name = document.getElementById('name-select').value;
             const email = document.getElementById('email-input').value;
+            selectedName = name;
 
             if (!name) {
                 showMessage('Please select your name!', 'error');
