@@ -52,7 +52,7 @@
             text-align: center;
             color: #8B0000;
             font-size: 2.5em;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
         }
 
         .form-group {
@@ -140,7 +140,7 @@
             text-align: center;
             color: #8B0000;
             font-size: 1.8em;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             font-weight: bold;
             opacity: 0;
             animation: fadeInDown 0.7s ease forwards;
@@ -151,167 +151,85 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* Gift scene */
-        .gift-scene {
+        /* Cards */
+        .cards-container {
             display: flex;
             justify-content: center;
-            padding: 30px 20px 20px;
-        }
-
-        .gift-wrapper {
-            position: relative;
-            display: inline-flex;
-            flex-direction: column;
             align-items: center;
+            gap: 20px;
+            padding: 10px 20px;
         }
 
-        @keyframes gift-shake {
-            0%   { transform: rotate(0deg) translateX(0); }
-            10%  { transform: rotate(-2deg) translateX(-3px); }
-            20%  { transform: rotate(2deg) translateX(3px); }
-            30%  { transform: rotate(-3.5deg) translateX(-5px); }
-            40%  { transform: rotate(3.5deg) translateX(5px); }
-            50%  { transform: rotate(-3deg) translateX(-4px); }
-            60%  { transform: rotate(3deg) translateX(4px); }
-            70%  { transform: rotate(-2deg) translateX(-2px); }
-            80%  { transform: rotate(2deg) translateX(2px); }
-            90%  { transform: rotate(-1deg) translateX(-1px); }
-            100% { transform: rotate(0deg) translateX(0); }
-        }
-
-        .gift-wrapper.shaking {
-            animation: gift-shake 1s ease-in-out;
-            transform-origin: bottom center;
-        }
-
-        /* Lid */
-        .gift-lid {
-            width: 280px;
-            height: 72px;
-            background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 40%, #1B5E20 100%);
-            border-radius: 10px 10px 0 0;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 -3px 15px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.12);
-            transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.4, 1), opacity 0.6s ease 0.1s;
-        }
-
-        .gift-lid.open {
-            transform: translateY(-260px) rotate(-14deg);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Ribbon on lid */
-        .gift-lid::before {
-            content: '';
-            position: absolute;
-            width: 38px;
-            height: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(to right, #9A6C00, #FFD700, #DAA520, #FFD700, #9A6C00);
-            opacity: 0.9;
-        }
-
-        /* Bow — child of lid so it flies off with it */
-        .gift-bow {
-            position: absolute;
-            top: -26px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3.2em;
-            z-index: 3;
-            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
-            pointer-events: none;
-            line-height: 1;
-        }
-
-        /* Box body */
-        .gift-body {
-            width: 260px;
-            height: 190px;
-            background: linear-gradient(160deg, #8B0000 0%, #6B0000 60%, #7D0000 100%);
-            border-radius: 0 0 12px 12px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 14px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05);
-            margin-top: -2px;
-        }
-
-        /* Vertical ribbon on body */
-        .gift-body::before {
-            content: '';
-            position: absolute;
-            width: 38px;
-            height: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(to right, #9A6C00, #FFD700, #DAA520, #FFD700, #9A6C00);
-            opacity: 0.9;
-            z-index: 1;
-        }
-
-        /* Horizontal ribbon on body */
-        .gift-body::after {
-            content: '';
-            position: absolute;
-            height: 38px;
-            width: 100%;
-            top: 28px;
-            background: linear-gradient(to bottom, #9A6C00, #FFD700, #DAA520, #FFD700, #9A6C00);
-            opacity: 0.9;
-            z-index: 1;
-        }
-
-        /* Inner liner — revealed when lid opens */
-        .gift-inner {
-            position: absolute;
-            inset: 10px;
-            background: linear-gradient(160deg, #fffdf8 0%, #fff4e6 100%);
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 2;
-        }
-
-        .gift-inner.show {
-            opacity: 1;
-        }
-
-        .gift-name {
-            font-family: 'Georgia', serif;
-            font-size: 2em;
-            font-weight: bold;
-            color: #8B0000;
-            text-align: center;
-            padding: 0 12px;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            line-height: 1.1;
-        }
-
-        .gift-name.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .gift-divider {
-            font-size: 1.2em;
+        .ampersand {
+            font-size: 2.5em;
             color: #1B4D1B;
             font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            flex-shrink: 0;
         }
 
-        .gift-divider.show {
-            opacity: 1;
+        .card-flip-container {
+            perspective: 1000px;
+            width: 220px;
+            height: 160px;
+            flex-shrink: 0;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+            color: white;
+        }
+
+        .card-front .gift-emoji {
+            font-size: 5em;
+            animation: pulse 1.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50%       { transform: scale(1.12); }
+        }
+
+        .card.flipped .gift-emoji {
+            animation: none;
+        }
+
+        .card-back {
+            background: linear-gradient(160deg, #fffdf8 0%, #fff4e6 100%);
+            color: #8B0000;
+            transform: rotateY(180deg);
+            border: 3px solid #1B4D1B;
+        }
+
+        .card-back h2 {
+            font-size: 2.2em;
+            text-align: center;
+            padding: 0 15px;
+            margin: 0;
+            line-height: 1.1;
         }
 
         /* Confetti */
@@ -384,11 +302,7 @@
 
             h1 {
                 font-size: 1.9em;
-            }
-
-            .subtitle {
-                font-size: 1.05em;
-                margin-bottom: 22px;
+                margin-bottom: 24px;
             }
 
             select, input {
@@ -404,30 +318,31 @@
 
             .animation-title {
                 font-size: 1.3em;
-                margin-bottom: 20px;
+                margin-bottom: 24px;
             }
 
-            .gift-scene {
-                padding: 24px 10px 16px;
+            /* Stack cards vertically on mobile */
+            .cards-container {
+                flex-direction: column;
+                gap: 12px;
+                padding: 0;
             }
 
-            .gift-lid {
-                width: min(280px, 90vw);
-                height: 64px;
+            .ampersand {
+                font-size: 1.6em;
             }
 
-            .gift-body {
-                width: min(260px, 84vw);
-                height: 170px;
+            .card-flip-container {
+                width: min(340px, 100%);
+                height: 110px;
             }
 
-            .gift-name {
-                font-size: 1.75em;
+            .card-back h2 {
+                font-size: 2em;
             }
 
-            .gift-bow {
-                font-size: 2.8em;
-                top: -23px;
+            .card-front .gift-emoji {
+                font-size: 3em;
             }
 
             .success-message {
@@ -465,16 +380,27 @@
         <div class="animation-container" id="animation-container">
             <h2 class="animation-title">You're giving gifts to...</h2>
 
-            <div class="gift-scene">
-                <div class="gift-wrapper" id="gift-wrapper">
-                    <div class="gift-lid" id="gift-lid">
-                        <div class="gift-bow">🎀</div>
+            <div class="cards-container">
+                <div class="card-flip-container">
+                    <div class="card" id="card1">
+                        <div class="card-face card-front">
+                            <div class="gift-emoji">🎁</div>
+                        </div>
+                        <div class="card-face card-back">
+                            <h2 id="name1"></h2>
+                        </div>
                     </div>
-                    <div class="gift-body">
-                        <div class="gift-inner" id="gift-inner">
-                            <div class="gift-name" id="name1"></div>
-                            <div class="gift-divider" id="gift-divider">&amp;</div>
-                            <div class="gift-name" id="name2"></div>
+                </div>
+
+                <div class="ampersand">&amp;</div>
+
+                <div class="card-flip-container">
+                    <div class="card" id="card2">
+                        <div class="card-face card-front">
+                            <div class="gift-emoji">🎁</div>
+                        </div>
+                        <div class="card-face card-back">
+                            <h2 id="name2"></h2>
                         </div>
                     </div>
                 </div>
@@ -527,20 +453,16 @@
                 const el = document.createElement('div');
                 el.classList.add('confetti');
                 if (Math.random() > 0.5) el.classList.add('circle');
-
                 el.style.background = colours[Math.floor(Math.random() * colours.length)];
                 const size = Math.random() * 8 + 6;
                 el.style.width = size + 'px';
                 el.style.height = size + 'px';
                 el.style.left = Math.random() * 100 + '%';
-
                 const drift = (Math.random() - 0.5) * 250;
                 el.style.setProperty('--drift', drift + 'px');
-
                 const duration = Math.random() * 2 + 2.5;
                 el.style.animationDuration = duration + 's';
                 el.style.animationDelay = Math.random() * 0.6 + 's';
-
                 document.body.appendChild(el);
                 setTimeout(() => el.remove(), (duration + 0.6) * 1000 + 500);
             }
@@ -573,38 +495,16 @@
             animationContainer.classList.add('active');
             animationContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // Shake the gift
-            await new Promise(r => setTimeout(r, 600));
-            document.getElementById('gift-wrapper').classList.add('shaking');
+            await new Promise(r => setTimeout(r, 900));
+            document.getElementById('card1').classList.add('flipped');
 
-            // Lid flies off
-            await new Promise(r => setTimeout(r, 1100));
-            document.getElementById('gift-wrapper').classList.remove('shaking');
-            await new Promise(r => setTimeout(r, 200));
-            document.getElementById('gift-lid').classList.add('open');
+            await new Promise(r => setTimeout(r, 2400));
+            document.getElementById('card2').classList.add('flipped');
 
-            // Inner liner fades in
-            await new Promise(r => setTimeout(r, 550));
-            document.getElementById('gift-inner').classList.add('show');
-
-            // Name 1
-            await new Promise(r => setTimeout(r, 350));
-            document.getElementById('name1').classList.add('show');
-
-            // Divider
-            await new Promise(r => setTimeout(r, 500));
-            document.getElementById('gift-divider').classList.add('show');
-
-            // Name 2
-            await new Promise(r => setTimeout(r, 300));
-            document.getElementById('name2').classList.add('show');
-
-            // Confetti
-            await new Promise(r => setTimeout(r, 800));
+            await new Promise(r => setTimeout(r, 1200));
             createConfetti();
 
-            // Success message
-            await new Promise(r => setTimeout(r, 900));
+            await new Promise(r => setTimeout(r, 1000));
             showMessage(
                 `🎄 Merry Christmas, ${selectedName}! 🎄<span class="success-sub">A copy has been sent to your email too. 📬</span>`,
                 'success'
