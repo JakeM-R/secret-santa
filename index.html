@@ -78,6 +78,14 @@
             font-size: 1.1em;
         }
 
+        .field-hint {
+            display: block;
+            margin-top: 6px;
+            color: #888;
+            font-size: 0.88em;
+            font-style: italic;
+        }
+
         select, input {
             width: 100%;
             padding: 15px;
@@ -107,6 +115,8 @@
             margin-top: 20px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
         }
 
         .reveal-btn:hover {
@@ -115,8 +125,25 @@
         }
 
         .reveal-btn:disabled {
-            opacity: 0.6;
+            opacity: 0.8;
             cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Shimmer effect on button while loading */
+        .reveal-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 1.2s infinite;
+        }
+
+        @keyframes shimmer {
+            to { left: 100%; }
         }
 
         /* Animation Container */
@@ -124,7 +151,7 @@
             display: none;
             margin-top: 40px;
             position: relative;
-            min-height: 500px;
+            min-height: 300px;
         }
 
         .animation-container.active {
@@ -135,8 +162,21 @@
             text-align: center;
             color: #8B0000;
             font-size: 1.8em;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             font-weight: bold;
+            opacity: 0;
+            animation: fadeInDown 0.7s ease forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Cards Container */
@@ -169,7 +209,7 @@
             position: relative;
             width: 100%;
             height: 100%;
-            transition: transform 1s;
+            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
         }
 
@@ -189,7 +229,7 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
 
-        /* Front of card (question mark) */
+        /* Front of card — pulses gently while waiting */
         .card-front {
             background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
             color: white;
@@ -199,58 +239,99 @@
             font-size: 5em;
             font-weight: bold;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            animation: pulse 1.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+
+        /* Stop pulsing once flipped */
+        .card.flipped .question-mark {
+            animation: none;
         }
 
         /* Back of card (name) */
         .card-back {
-            background: white;
+            background: linear-gradient(160deg, #fffdf8 0%, #fff4e6 100%);
             color: #8B0000;
             transform: rotateY(180deg);
             border: 3px solid #1B4D1B;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card-back .card-star {
+            font-size: 1.2em;
+            opacity: 0.6;
         }
 
         .card-back h2 {
             font-size: 2.2em;
             text-align: center;
-            padding: 20px;
+            padding: 0 15px;
             margin: 0;
+            line-height: 1.1;
         }
 
         /* Confetti */
         .confetti {
             position: fixed;
+            top: -15px;
             width: 10px;
             height: 10px;
-            background: white;
-            animation: confetti-fall 3s linear forwards;
+            border-radius: 2px;
+            animation: confetti-fall linear forwards;
         }
 
-        .confetti.gold {
-            background: #DAA520;
+        .confetti.circle {
+            border-radius: 50%;
         }
 
         @keyframes confetti-fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) translateX(var(--drift)) rotate(720deg);
                 opacity: 0;
             }
         }
 
+        /* Success message */
         .success-message {
-            background: rgba(27, 77, 27, 0.1);
+            background: linear-gradient(135deg, rgba(27,77,27,0.08) 0%, rgba(27,77,27,0.15) 100%);
             border: 2px solid #1B4D1B;
-            color: #0B6623;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 40px;
+            color: #0B4D0B;
+            padding: 28px 24px;
+            border-radius: 15px;
+            margin-top: 35px;
             text-align: center;
-            font-size: 1.1em;
+            font-size: 1.25em;
+            font-weight: bold;
             opacity: 0;
-            transition: opacity 0.5s;
+            transform: translateY(10px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            line-height: 1.5;
+        }
+
+        .success-message .success-sub {
+            display: block;
+            font-size: 0.75em;
+            font-weight: normal;
+            margin-top: 8px;
+            color: #1B4D1B;
+            opacity: 0.85;
         }
 
         .success-message.show {
             opacity: 1;
+            transform: translateY(0);
         }
 
         .error-message {
@@ -264,34 +345,76 @@
         }
 
         @media (max-width: 600px) {
+            body {
+                align-items: flex-start;
+                padding: 12px;
+            }
+
             .container {
-                padding: 20px;
+                padding: 24px 18px;
             }
 
             h1 {
-                font-size: 2em;
+                font-size: 1.9em;
             }
 
+            .subtitle {
+                font-size: 1.05em;
+                margin-bottom: 22px;
+            }
+
+            /* Prevent iOS auto-zoom on focus */
+            select, input {
+                font-size: 16px;
+                padding: 14px 12px;
+            }
+
+            .reveal-btn {
+                font-size: 1.15em;
+                padding: 20px;
+                margin-top: 16px;
+            }
+
+            .animation-container {
+                margin-top: 20px;
+                min-height: 0;
+            }
+
+            .animation-title {
+                font-size: 1.25em;
+                margin-bottom: 22px;
+            }
+
+            /* Stack cards vertically — much cleaner on phone */
             .cards-container {
-                gap: 20px;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                padding: 0;
+            }
+
+            .ampersand {
+                font-size: 1.6em;
+                margin: 2px 0;
             }
 
             .card-flip-container {
-                width: 150px;
-                height: 120px;
+                width: min(340px, 100%);
+                height: 110px;
             }
 
             .card-back h2 {
-                font-size: 1.6em;
+                font-size: 2em;
             }
 
             .card-front .question-mark {
                 font-size: 3em;
             }
 
-            .ampersand {
-                font-size: 2em;
-                margin: 0 5px;
+            .success-message {
+                font-size: 1.1em;
+                padding: 22px 16px;
+                margin-top: 22px;
             }
         }
     </style>
@@ -302,7 +425,7 @@
 
     <div class="container">
         <h1>🎅 Secret Santa 🎄</h1>
-        <p class="subtitle">Discover your gift recipients!</p>
+        <p class="subtitle">Find out who you're buying for this year!</p>
 
         <!-- Form Section -->
         <div id="form-section">
@@ -311,11 +434,13 @@
                 <select id="name-select">
                     <option value="">-- Choose your name --</option>
                 </select>
+                <span class="field-hint">Not seeing your name? You've already peeked! 🎁</span>
             </div>
 
             <div class="form-group">
                 <label for="email-input">Enter Your Email:</label>
                 <input type="email" id="email-input" placeholder="your.email@example.com">
+                <span class="field-hint">We'll send a copy straight to your inbox too.</span>
             </div>
 
             <button class="reveal-btn" id="reveal-btn">
@@ -325,31 +450,33 @@
 
         <!-- Animation Section -->
         <div class="animation-container" id="animation-container">
-            <h2 class="animation-title">You're Giving Gifts To...</h2>
+            <h2 class="animation-title">🎄 You're giving gifts to... 🎄</h2>
 
             <div class="cards-container">
                 <!-- Card 1 -->
                 <div class="card-flip-container">
                     <div class="card" id="card1">
                         <div class="card-face card-front">
-                            <div class="question-mark">🎄</div>
+                            <div class="question-mark">🎁</div>
                         </div>
                         <div class="card-face card-back">
+                            <span class="card-star">⭐</span>
                             <h2 id="name1"></h2>
                         </div>
                     </div>
                 </div>
 
                 <!-- Ampersand -->
-                <div class="ampersand">&</div>
+                <div class="ampersand">&amp;</div>
 
                 <!-- Card 2 -->
                 <div class="card-flip-container">
                     <div class="card" id="card2">
                         <div class="card-face card-front">
-                            <div class="question-mark">🎄</div>
+                            <div class="question-mark">🎁</div>
                         </div>
                         <div class="card-face card-back">
+                            <span class="card-star">⭐</span>
                             <h2 id="name2"></h2>
                         </div>
                     </div>
@@ -362,13 +489,14 @@
     </div>
 
     <script>
-        // Configuration
         const API_URL = 'https://soft-sea-388e.j-makkingrobinson.workers.dev';
 
-        // Create snowfall
+        const isMobile = window.innerWidth < 600;
+
         function createSnowfall() {
             const snowfall = document.getElementById('snowfall');
-            for (let i = 0; i < 50; i++) {
+            const count = isMobile ? 20 : 50;
+            for (let i = 0; i < count; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.classList.add('snowflake');
                 snowflake.innerHTML = '❄';
@@ -380,12 +508,10 @@
             }
         }
 
-        // Load family members
         async function loadFamily() {
             try {
                 const response = await fetch(`${API_URL}/api/family`);
                 const family = await response.json();
-                
                 const select = document.getElementById('name-select');
                 family.forEach(member => {
                     const option = document.createElement('option');
@@ -399,77 +525,82 @@
             }
         }
 
-        // Create confetti
         function createConfetti() {
-            for (let i = 0; i < 60; i++) {
+            const colours = ['#C41E3A', '#1B4D1B', '#DAA520', '#B22222', '#2E7D32', '#FFD700', '#8B0000'];
+            const count = isMobile ? 60 : 120;
+            for (let i = 0; i < count; i++) {
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
-                
-                // 80% white, 20% gold
-                if (Math.random() > 0.2) {
-                    confetti.style.background = 'white';
-                } else {
-                    confetti.classList.add('gold');
-                }
-                
+
+                if (Math.random() > 0.5) confetti.classList.add('circle');
+
+                const colour = colours[Math.floor(Math.random() * colours.length)];
+                confetti.style.background = colour;
+
+                const size = Math.random() * 8 + 6;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+
                 confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.top = '40%';
-                confetti.style.animationDelay = Math.random() * 0.3 + 's';
+                confetti.style.top = '-15px';
+
+                const drift = (Math.random() - 0.5) * 250;
+                confetti.style.setProperty('--drift', drift + 'px');
+
+                const duration = Math.random() * 2 + 2.5;
+                confetti.style.animationDuration = duration + 's';
+                confetti.style.animationDelay = Math.random() * 0.6 + 's';
+
                 document.body.appendChild(confetti);
-                
-                setTimeout(() => confetti.remove(), 3000);
+                setTimeout(() => confetti.remove(), (duration + 0.6) * 1000 + 500);
             }
         }
 
-        // Show message
         function showMessage(text, type) {
             const messageArea = document.getElementById('message-area');
             const div = document.createElement('div');
             div.className = type === 'error' ? 'error-message' : 'success-message';
-            div.textContent = text;
+            if (type === 'success') {
+                div.innerHTML = text;
+            } else {
+                div.textContent = text;
+            }
             messageArea.innerHTML = '';
             messageArea.appendChild(div);
-            
             if (type === 'success') {
                 setTimeout(() => div.classList.add('show'), 100);
             }
         }
 
-        // Reveal animation - simple card flips
         async function revealRecipients(recipient1, recipient2) {
             const formSection = document.getElementById('form-section');
             const animationContainer = document.getElementById('animation-container');
             const card1 = document.getElementById('card1');
             const card2 = document.getElementById('card2');
-            const name1 = document.getElementById('name1');
-            const name2 = document.getElementById('name2');
 
-            // Hide form
+            document.getElementById('name1').textContent = recipient1;
+            document.getElementById('name2').textContent = recipient2;
+
             formSection.style.display = 'none';
             animationContainer.classList.add('active');
+            animationContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // Set the names (hidden on back of cards)
-            name1.textContent = recipient1;
-            name2.textContent = recipient2;
-
-            // Wait a moment, then flip first card
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 900));
             card1.classList.add('flipped');
 
-            // Wait 3 seconds, then flip second card
-            await new Promise(resolve => setTimeout(resolve, 3000));
+            await new Promise(resolve => setTimeout(resolve, 2400));
             card2.classList.add('flipped');
 
-            // Wait a moment, then confetti
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            await new Promise(resolve => setTimeout(resolve, 1200));
             createConfetti();
 
-            // Show success message
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            showMessage('Check your email for your assignments! 🎄✨', 'success');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            showMessage(
+                `🎉 Ho ho ho! Happy gifting! 🎉<span class="success-sub">A copy has been sent to your email too. 📬</span>`,
+                'success'
+            );
         }
 
-        // Handle button click
         document.getElementById('reveal-btn').addEventListener('click', async () => {
             const name = document.getElementById('name-select').value;
             const email = document.getElementById('email-input').value;
@@ -486,14 +617,13 @@
 
             const btn = document.getElementById('reveal-btn');
             btn.disabled = true;
+            btn.classList.add('loading');
             btn.textContent = '✨ Generating Magic... ✨';
 
             try {
                 const response = await fetch(`${API_URL}/api/get-assignment`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, email })
                 });
 
@@ -503,18 +633,17 @@
                     throw new Error(data.error || 'Failed to get assignment');
                 }
 
-                // Start animation
                 await revealRecipients(data.recipient1, data.recipient2);
 
             } catch (error) {
                 console.error('Error:', error);
                 showMessage('Something went wrong! Please try again.', 'error');
                 btn.disabled = false;
+                btn.classList.remove('loading');
                 btn.textContent = '🎁 Reveal My Secret Santa Picks! 🎁';
             }
         });
 
-        // Initialize
         createSnowfall();
         loadFamily();
     </script>
