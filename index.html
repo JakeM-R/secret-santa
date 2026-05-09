@@ -232,16 +232,17 @@
             color: white;
             transform: rotateY(180deg);
             border: 3px solid #C9A227;
+            opacity: 0;
         }
 
-        /* Inner border detail on card back */
-        .card-back::before {
-            content: '';
-            position: absolute;
-            inset: 7px;
-            border: 1px solid rgba(201,162,39,0.4);
-            border-radius: 9px;
-            pointer-events: none;
+        .card.flipped .card-front {
+            opacity: 0;
+            transition: opacity 0s linear 0.45s;
+        }
+
+        .card.flipped .card-back {
+            opacity: 1;
+            transition: opacity 0s linear 0.45s;
         }
 
         .card-back h2 {
