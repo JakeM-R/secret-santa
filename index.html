@@ -195,17 +195,42 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            overflow: hidden;
         }
 
         .card-front {
-            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #C0392B 100%);
             color: white;
+            border: 3px solid #A93226;
+        }
+
+        /* Gold ribbon cross on card front */
+        .card-front::before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 100%;
+            background: linear-gradient(to right, rgba(180,130,0,0.5), rgba(255,200,0,0.6), rgba(180,130,0,0.5));
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .card-front::after {
+            content: '';
+            position: absolute;
+            height: 22px;
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(180,130,0,0.5), rgba(255,200,0,0.6), rgba(180,130,0,0.5));
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .card-front .gift-emoji {
             font-size: 5em;
             animation: pulse 1.4s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes pulse {
@@ -218,10 +243,20 @@
         }
 
         .card-back {
-            background: linear-gradient(160deg, #1B5E20 0%, #2E7D32 100%);
+            background: linear-gradient(160deg, #0D3B14 0%, #1A5522 100%);
             color: white;
             transform: rotateY(180deg);
-            border: 3px solid rgba(255,255,255,0.25);
+            border: 3px solid #C9A227;
+        }
+
+        /* Inner border detail on card back */
+        .card-back::before {
+            content: '';
+            position: absolute;
+            inset: 7px;
+            border: 1px solid rgba(201,162,39,0.4);
+            border-radius: 9px;
+            pointer-events: none;
         }
 
         .card-back h2 {
@@ -230,6 +265,9 @@
             padding: 0 15px;
             margin: 0;
             line-height: 1.1;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 1;
         }
 
         /* Confetti */
